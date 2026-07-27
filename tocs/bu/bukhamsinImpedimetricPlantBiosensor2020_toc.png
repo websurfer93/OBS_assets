@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="en">
+
+<head>
+    <meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /><title>SSO URV Login</title>
+    
+        <link rel="stylesheet" type="text/css" href="/cas/webjars/normalize.css/8.0.1/normalize-112272e51c80ffe5bd01becd2ce7d656.css" /><link rel="stylesheet" type="text/css" href="/cas/webjars/bootstrap/5.3.8/css/bootstrap-grid.min-895b9494c7178ac12ad9c56d81305665.css" /><link rel="stylesheet" type="text/css" href="/cas/webjars/material-components-web/14.0.0/dist/material-components-web.min-9da9033e8d04504fe54b3dbb1298fd78.css" /><link rel="stylesheet" type="text/css" href="/cas/webjars/mdi__font/7.4.47/css/materialdesignicons.min-2c83c4bce691e18f82409f87b2bf84e4.css" /><link rel="stylesheet" type="text/css" href="/cas/webjars/datatables/2.3.2/css/dataTables.dataTables-86c98d6ce5aa289ccf4492ac3a785fad.css" /><link rel="stylesheet" type="text/css" href="/cas/themes/css/cas-f5285a155b6ab2911c486b7808b3e29e.css" /><link rel="stylesheet" type="text/css" href="/cas/themes/css/custom-b0985bcca08f2903ccd80924210fd03d.css" /><link rel="shortcut icon" href="/cas/images/favicon-f043d41788851119fec7597ad767fe41.ico" /></head>
+
+<body class="login mdc-typography">
+    <script type="text/javascript" src="/cas/webjars/jquery/3.7.1/jquery.min-2c872dbe60f4ba70fb85356113d8b35e.js"></script>
+<script type="text/javascript" src="/cas/webjars/datatables/2.3.2/js/dataTables-8e31487c41abe2938c55b5dcde42a604.js"></script>
+<script type="text/javascript" src="/cas/webjars/clientjs/0.2.1/dist/client.min-5b6a46b3fb2ab9307d013def98fd7289.js"></script>
+
+<script type="text/javascript" src="/cas/webjars/material-components-web/14.0.0/dist/material-components-web.min-3c99031127092dd1984f2e3aa6aeed8b.js"></script>
+<script type="text/javascript" src="/cas/themes/js/cas-b71141470c2a36ad74c204ce181e2c6d.js"></script>
+<script type="text/javascript" src="/cas/themes/js/material-9b2c7d303fa5c0adbd33444b7d050d16.js"></script>
+<script type="text/javascript" src="/cas/themes/js/custom-a60d6df3afa4c330cf9df18daaac230f.js"></script>
+<script>
+    if (typeof resourceLoadedSuccessfully === "function") {
+        resourceLoadedSuccessfully();
+    }
+	if (typeof resourceLoadedSuccessfullyInt === "function") {
+		resourceLoadedSuccessfullyInt();
+    }
+    $(() => typeof cssVars === "function" && cssVars({onlyLegacy: true}));
+    let trackGeoLocation = false;
+</script>
+
+<style>
+  details summary {
+    cursor: pointer;
+  }
+  .arrow::before {
+    content: "▶";
+    font-size: 0.8rem;
+  }
+  details[open] .arrow::before {
+    content: "▼";
+  }
+</style>
+
+<div class="mdc-drawer-scrim"></div>
+
+    <div class="mdc-drawer-app-content d-flex justify-content-center">
+        <main id="main-content" attr="class=py-4">
+            <div id="content" class="d-flex justify-content-center">
+   <div class="d-flex justify-content-center flex-md-row flex-column">
+        <section id="loginForm"
+                 class="login-section login-form card-body">
+            <div class="d-flex flex-column justify-content-between m-auto">
+
+        <div>
+            <div id="serviceui" class="text-justify">
+        <div class="d-flex flex-column align-items-center">
+            <img src="images/sabidi.jpg" class="img-fluid mb-3" /><div id="servicedesc" class="d-flex flex-column text-center">
+                <h1 class="signin-title mt-2">Servei d&#39;Accés a la Biblioteca Digital</h1>
+                <p>Universitat Rovira i Virgili</p>
+                </div>
+        </div>
+        <hr class="separator"/></div>
+        </div>
+
+        <div class="form-wrapper">
+			<div>
+	            <form method="post" id="fm1" action="login" onsubmit="loginFormSubmission();">
+	                <div id="login-form-controls">
+	                    <h2 class="text-center">
+	                        <i class="mdi mdi-login fas fa-shield-alt" aria-hidden="true"></i>
+	                        <span>Enter Username & Password</span>
+	                    </h2>
+	
+	                    <section class="cas-field form-group my-3" id="usernameSection">
+	                        <label for="username"
+	                               class="mdc-text-field mdc-text-field--outlined control-label w-100">
+	                            <span class="mdc-notched-outline">
+	                                <span class="mdc-notched-outline__leading"></span>
+	                                <span class="mdc-notched-outline__notch">
+	                                    <span class="mdc-floating-label">Username</span>
+	                                </span>
+	                                <span class="mdc-notched-outline__trailing"></span>
+	                            </span>
+	                            <input class="mdc-text-field__input form-control" id="username"
+	                                   size="25"
+	                                   type="text"
+	                                   accesskey="u"
+	                                   placeholder="Ex: 1234567-P / X-1234567-Y / AB123456"
+	                                   autocapitalize="none"
+	                                   spellcheck="false"
+	                                   autocomplete="off" required name="username" value="" /></label>
+	
+	                        <div class="mdc-text-field-helper-line invalid-feedback">
+	                            <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+	                                <span id="usernameValidationMessage">Username is a required field</span>
+	                            </div>
+	                        </div>
+	
+	                        <script type="text/javascript">
+	                            /*<![CDATA[*/
+	                            let username = "";
+	                            let disabled = false;
+	
+	                            if (username != null && username !== '') {
+	                                $('#username').val(username);
+	                                if (disabled) {
+	                                    $('#usernameSection').hide();
+	                                }
+	                            }
+	                            /*]]>*/
+	                        </script>
+	                    </section>
+	
+	                    <section class="cas-field form-group my-3 mdc-input-group form-group" id="passwordSection">
+	                        <div class="mdc-input-group-field mdc-input-group-field-append">
+	                            <label for="password"
+	                                   class="mdc-text-field caps-check mdc-text-field--outlined control-label mdc-text-field--with-trailing-icon control-label w-100">
+	                                    <span class="mdc-notched-outline">
+	                                        <span class="mdc-notched-outline__leading"></span>
+	                                        <span class="mdc-notched-outline__notch">
+	                                            <span class="mdc-floating-label">Password </span>
+	                                        </span>
+	                                        <span class="mdc-notched-outline__trailing"></span>
+	                                    </span>
+	                                <input class="mdc-text-field__input form-control pwd"
+	                                       type="password"
+	                                       id="password"
+	                                       size="25"
+	                                       required
+	                                       accesskey="p"
+	                                       autocomplete="off" name="password" value=""/><button
+	                                        class="reveal-password mdc-button mdc-button--unelevated mdc-input-group-append mdc-icon-button btn btn-primary"
+	                                        tabindex="-1" type="button" title="Toggle password">
+	                                    <i class="mdi mdi-eye reveal-password-icon fas fa-eye" aria-hidden="true"></i>
+	                                </button>
+	                            </label>
+	                            <div class="mdc-text-field-helper-line invalid-feedback">
+	                                <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+	                                    <span id="passwordValidationMessage">Password is a required field</span>
+	                                </div>
+	                            </div>
+	
+	                        </div>
+	
+	                        <div class="mdc-text-field-helper-line invalid-feedback caps-warn">
+	                            <div class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg text-danger">
+	                                <span >CAPSLOCK key is turned on!</span>
+	                            </div>
+	                        </div>
+	                    </section>
+	
+	                    <section class="cas-field form-group my-3">
+	                        </section>
+	
+	                    <section class="cas-field">
+	                        <input type="hidden" name="execution" value="476ef9f2-4bdf-4146-9ecc-e3655446d971_ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0lzSW10cFpDSTZJbU5sTjJWak1EYzBMVEk0TUdFdE5ESXdaQzFoTkRrMUxXTTNZakZqTVRjNE9XRmtOeUo5LnRKYkJhbV9mM01zQ0ppdVJ5M3JGTzJnZW9LYW5lc3JjUVJsQ3ZNUkxsNHdpVmtLcjBtLWxFdms5blVjN18yd0ZVUzUtdExQWC1xUG52ZXVfNDBTUXpUeWZYYkNybFRVWE40Mi01TU14cEZSc3VGei00ME9ZbFRHR0J0b0hGNW1GMWtJRGhhbERTUHktQVU2ZHdFVGg4YlczUTRQX24zUXc0czBVRUQtWHVodXU1T1hMWG5aVGJ5QXlvdHQ5MXByOEJNcXNNYzJOMVI4UmlSNTVTSWtUUmVDOUNfRXYtQW0xV0NfbFdTNG5Kd2xoODFZU1VvN0h4c1ZhZ21DYl95NFRzZHNyZHZZLXlydjk5aDJ0QmY5TmZxeFRiMUpUVnE4c0RqX0xUdWhTZHJlcWZqMTAwQnYxVjNUc1ltcTM2ZzdvNW1xd3JiSUpxQXMxdmpfY21fTlB2V3hocEpOSFhHd0NsRnF2VFQ3M0hLSjZXaHRyX2ZYN0J2UHh0czZZdTRTLTVhR040SFdVLS1OdkZPUVpfU2VmSWhZazRVLXZjUEpWX3JYOUFVQXEtQjdfMFZsOExyazZIajlWS0Mtbjh6RmVuSUd6LTdRNFVpeVpTakxQcFFocGVmb25obnJxR0dLN3c1cm9XcVVIaF8wdFVUb0FSR3FsODdFaDZPZlQwaWxqT001cmZ1YlJ5S1pNNDZoYU1NYUg1LTBuZUxLTlRSanVud2hpUVk5amtGQ0xobm9iemU0eEJiUEtlcWdKdkd2RW9EcFBzdUR1WEdCcVVpaE5lRDBRclFYNTZ0dVJWZkFuU1V6VUhfaEI1d3RERkZqejhFcDI4akZwb0VidU1GNGtZMGJLdGl0dXZDR2NzcmdJSTV1bDM5ZUdEbDBfQ01zSVNCcXVVYUZLSDJjQTQ3T0V3bk50QW9ZTnRWTzdkdmpvX3VyLTA1Zl9yYnVNc2xwemM1TGktdXJ3YnNvUXR3bWdhZS1VVEt6OGVXNUhJVVRpWGRrWlNEM0MzSmJkSjlmUFZTUjFUN1FVUk4yeVFQTnJrdC1hVWpwY0RvNGlLU1hZQnJlRjdsbTJkTjlENVkwZ3JwVUdLeWt6OXl5bWx1eU9YN0JuMng4U0FSQ2NFa1dRUGI5aXhmdDNYR2ZPTzR5TnQtZ0xtSzN6OElLQ01UOVNBVDZlM2d0Y3JlTDlYVllDWmk2dTV5eHdET3NaT0tVSjN6WTVnRFJDWGF5a0Z4YjlBd1N1SmRvZWFtcnhGVFRtNTlrREloOTluaHNTQzE4OUd0ay1HYjE2UENBbWEyN01wRmphZHdJa3VnVDV0MzhiZVhybWRpV2oxcXpLem9tYkpBUGRPNGpBOGxGM1Q5TUxKanlzZzVJVVh1S196Zkhzem5USVBFcHc4NW16akJ3VjBTazVhbGY1NEhsQ29LTWVfUGNmLUhwaHRRdUNnV1BOWnBITnN5SGxhQ0UtNkFSM1loQTFWQzlOWHdCaVo2S0hWWWNYMXkxaFBnU0VZSmFPSmsxNkZkblBuM2tMaHNnV21RVWVTVDBFTFo4M1JhOG5SdFc3NV9zSzhHYXlFZDRZcHpEOVBLb0xma2VUNm9iVl9SWUVFYmdnazlXOWJQcDBtcF9KX2xmVE1YOXlvV2NfLTRhTzNYY0ZscFBvRUNGbUhXcXdKNWs3Z0VzWlR1NmJVazdNSVhKemFocjJWQUxVam95a1JrZzJTQTZJS09iZ0hSVUwxTGh5RGhDYkRQaUNLMFhBUWx5WmtWal8xS1pkMU9qMXBqQndhb0lzLXYtWmtUV2NkeHh5SmFJSFpzVmtqUzc1M2xLRHROamd5Y3V6NmNMcU5CNHB5TmVTaHpsZUx1X3dXWGZKck5kX3d5LTV3YTdBQy1nc0g2QXNfRm9rY1FLdXJsWUdFaFBiOHB6RWstYnQ4NnZHV0pDQWF6Q0tQUkY5aFZhRGF3RFFRSGs0U2F4QUYzeGdkMnRvS2dKYkhUdmlZLTBsWFhtUkRGSWdMRkZzY0trVktkbkhKVVZ5YThsd2VPRzgyeGI2YWU1UDY3c2wxU2FSRWx6MzJqQWhCc2NQUWQyeWNpYi05TjdNcGlEeXZCU2RjOU1reDZWbzdDdmt0MWFmaWpvaGRaNWFiQ1ZqWV90REpZYlA3c0UwLUt6ZkJEa1V1dXJhUEdFU1h4NFotNjYyRnFNeGJkQ2hPV1RMQlRIOEU2a2dwcjJkcmwwV1pMUEF5MGZFR0dWNTU5TVlDcENiVVRlUmVwOUN6dmlBeDBPamQ0OGRNWUlRNFVoTGdTbHZKc3hTWk12bVRmQnFJMWdrckpKN2JKcXRpUVZVZGpYc3VFT2lBYkVRcjYwUnRFLW9WWWN1YnQ2VVc2Njk0M3BVd1NlYWtUS3czLS1xWThxOWxmWi02dUhmeDloNndYN0hYNXQ5OU1mTGR6YjVNQlF4YUZzckx5SlRVekFsaWR5TWFFYWYwTmxISzRpOENNNTRlMF9RNWFJS25Hcmkxc3NKVVpfUERiQjB5TlNTWjdVbjdrUVJ3RFdFUGxqUzg5bW5RTy1oWUU4ZmtjRkZRdXBGM2xyMUNRN3FlYzRZQ0FHNXpEcjdwUmFjWDZ1M2VHU1c5M3JDbDRlRHc4VmprQkVDaUtiVkRJRVloTFpZNmJjb00xdlZ0WTl5MHlTTW9DTEFzaDZKNWJmSngzNjhVY1pwVFNLSW1WY3E0R2JHMEdiUjdVekVvNjFiVGdCeHkzQnRTa2NwZUhUZXBhWjBRQjZNUzZzSnZFcmZGMUFHSkhCd1JtYjU3YkxRZk1LRklhMGJhODJOREk0Mm9iODN3SU1pa2xrU2ZQWGVRTkU5VmxaVXZrMzJyUk9telJ0TTREaXBsZXk5LXRvNGJfM2hjbUhKcWJoQjFQWGpORkdhblVRX0lwWGl0Z0dHeXRpS2o4dGoyejlmek5HVVJwV3RVV2ZSNFlQYWRXNlc2Tm1jcG1yclIxLWRMQzMySVZKeTR0NHBaLVNySGozTjFXaFR1emV6UV9lSXk4MFVRSUlRZDhxUG9OQlRZWTJoVDdEamk1Sk9Ub3JUSTFUbWpkaldSTU5ucE1CQ1RyMWU5TUQtUnczS3FBaWVvc0VvQzRxMUNmZlVMcmg4TTNLWVpteGRFZkpDdS14UndpSmJUZWhqa1F2NEY3OUF6N3BHQzg0YW8tYUYzN3hhaEhmNGZ0T3JNelpCY01MVnNtT3RFMmhYY2tZRDhxd285RjBtbTB0S2hSLTJUTjRHWmQxUlZVQS1KNTFPWjlvdmhsS3hraXJHbDM1SVU3RERCTlRoOEt4eXJTS2tabGI2bXlmZnpPMm5GTHcxcURvT0xxZnZyblliNE9Bb21GcEpxOTlFRUtkZW9vQ2d5TXVoS3MzZVhLMHFYdHg4RDFMRk54NG53Vld0V21uWHFlY1ppY0F3U3Q3ZkhmbG95eDQ2M1Jqa2Z6S29URnRKRHJ6dDMzS29HMXhKbGRoMkdDRXFYZ2xLMDY1d1RFY3VtSl9qSzVhMWZHcmhpeFFFYlRaSEJ3SzA2Zzg3YnQ5SWdQcUJGNWxEdkZGcEZCSUROaXdRWGs4R1FFZnZDNzI2bzI0dUhkN1FHRVRqMDcyRU9ld3lMNVpSMjViaHQxTU5KME8wdEYyanRDTU1fSF82ZHowVTRSMTZDcGhJOWJEeTc5Uld5SlMtekRQNXp1NWZjYVNQOTNqeWRxV3E5QjB4V3k0TWEzWmotdFQwTkFWNml3U1BfMGxBaVZHWnpGNjdJVVQwMXJ6QXR2RHBSUllvVWdxR2dJYkNvQ2FFbWdkV2M0LTlHNkFHZWVydmFSS1lVa0lUMVdTYVNjU1pGaEJqaE03Wk94Mk9jZktGYTJLMUxZS1BwMW5MYk9VMkU5aXc0dnZKd1pnRVRpQ1ZHNkF0bWVkZTl5OG13bFBXX01yRjA0bDJLaUV1QzdLWVpad1B6Y1owdWRlU3JqRFlfMWVnQnBhd1ZjN1VvSElydlJycmRIaXNrZWxqWlZVY2JnR1VDalBNNHdOYVJaZVphS1RmbWRaWnBTYjFYb2JuRmRBNXBWb0NkU0VGVWgxZHpGazJtbHdITnc1SDQ5c1BITmJ3VXRmd2dMcWRzcmNPQzJsRExZaE8xQU5hc0VVQTlFZXdqZ1pteURVSTY4cnVHTFJEUTBXYXhGSlp3Rk9SVWVidEhGM1BTa1QtMzVJTktKenQzbENZYk9DdE1UOHZEQ21rVGdlbWY1dUhXVWNhNWVQWmdGOEx0X0owTTJfeEJfR2kzVVZySnh5Z0JFVlRmRWNOVERmcVJac1YzcVJIdmd5VGVhV2Yza0ZrTWJuUHRrZE1wZ1lHSG1HU3FXLWRUOTVkaC1EX09OUzVucGlxLXZqQW1tWlA5SlVIZGtXLWp2ZFczYmJjczRlMmFKSUJTdFF5Uk8wQ3J6WTFRNWVSandITUgzLXIyX0ZCU2NUWjVHZFFtMDVUUEtoakZZMVFNbk1GRzNyRGh5ckpUUk91SFJvQ2dMWlVzOXFqOFVMTTBxOXIxbTV0TzJ6S0tGa2ZIbFZhU3MteDdTM2R4a3hlcTFwWDRLc1NPNkR2U182cVl2YWVPUDU3NUU2NlFkSlV4NFlfS0RYYVdLb25EcE15MURVamRxRmgzN3pKS2lpWmVPaDFLZG5JS0V2bEFFNThXYlU4VTByeHlVVnZuSjljc1V6VU02Y3h3eVZmcjIzYWV2Si1KSWQyN1B4OGpNcUtmb0NURmx0UFlCM2N4a1V5ekt5TU04ZjRIT2l5dmtqTXF5UEw0ZWRqZHV4OTJVTG1vd0FTZ1BKVEhvcmRMdDZQekhFNzRkQmo3V3FnUWprTVo3RWtUOXJUeTBrc3dRcHNNdGhmc3JNZkVXVGduclllNFJkVjl6QkJLMWxLQnJTdUItUENGYnc5OXFfZ1h6UklFZHZSY2RCYXlsemFTM3I3OGt1RDNMX0xoYURtSUtGRG4takI1aWd0T3NnNE5nRmZYOC1FMUdfbXRpQzUyYlFocm5OYzM4QzJxai15dHZocTgxcFZ5WWlNSmpXMVZkME1NcGhLUFViZ1hiTGNwU2JmbVZNOGdEWlF0Q1c1T2ZKYno2WUV4MUgtd3lXTG54UFo0RTVCYjF6WG9TUmZSbmZmbk9EbmZpMHY0SnFTb1NDTGU5T0x4ejJDU0RBRkRKbnlyRE5pSGZZSG5MME83SFRBaGlNekxvZkJzSXk2VHI3SlQ0V2tCMzJ4T0Z6YWs1eF9IR2lZam9UbGZrdWczUGw1eE9XcWhKYWY2YzJKQjMzcW11T0FhUjV5d0Z4a0s4T0Y2R19wNDgwZjNoeURodEFpeURCVl9GR3ZMU1B1ZHI3c2pTcWUyNml5aTV0N196djdPa2FYYXJkcTNUUmQyV3NpMTdqcEpWTUEyQlJtd29TWWVUNl9ILWZydjR6Skc4c3lUek9kMUVVXzZBY1V3T2dZTnhlczhCa0EySnVhN1lWNkZWOVIyTFJRUC1fWGl5UWVpQlQtbG5iNzREZkNTR0hoalluTVZLYUs4dkdjS2pHdnZyc2s3OWFTY1BLWGxRV01GRERZeXdBWDhTaDJ5bEZ1NC04WlB5TkZTZkR3c01jVlU3MTd4Y1hsNlZFalVhdUs2S1Jac2JiOHFwOWo2TmFOVHhYTGdtQ3ZjY1c5bkNNUFpRVnNBVHpOYVIwai1TVFVzN1phYlNfQ0ZfV21fd3p1NkFCSjNSckl3TC1oUWVrdC0xTmN3T204RXBhWkpOOElTazhqdjNCTVljdW42aEs3T0F5SFFDa2JnSmpFbnZIN3NldkRXWmdkaVREMUpYYXh1cVhKbHkyRHhMWTBhcGQ3cGlTS3V3a05QSC16VnlPd1Q5NTRzVFFySlNxZHkzdElEZVNpR3RtMnNLX2JNQ1RIcm9MMXBnS2xfMU1jako3XzMwSE9PN2NOaGtHaDBfVmlodmc1NWxqOTRzVE83MUtUUXUtUnY2M0VnWktvMG4xV1J4YlA1OHk4ckM5OTdWWndHNV9CWXdxTnNpS293cmhySWt1Q1VLcHpFM0FoVkUxR1hMZUZxUF9BY0VTZzd6QW5jMnBKUkJKaVBHWk9sVDFGMnpRMGlBdmVTMTVwM2ZoUHdqZm40NDdoQ2JlTWlKWnVfZHZhaHpUSFA3bHg4Qm1YbWlMV09hNERCQ2NuOEVvREktY2J4VE5nM3lxTWtWcXBMUHNUUS13WG8xNWJkTDl1V28yYXB2REhCR1R2cVRtanBueTA2b1IzbS1TUXZJdFc2WXZSblktb1VpMzhacThwc2Z6ZkxYeTA0UENXUmVLbVM3cVRsTWhiTjN2OWxfSVFXeVMtek5iZjRxSzZ5ODgtSXhUQWE2VWJseFlSN0UzWi11MjlCbEJFZG1lVF9jVjlsVndlR0FWUWFUWEtYQTZyYlVsLUl6cTNadVNjNXlsUFJEc3RsanpuMFIxYVJaak45QzIydFN1M1M2LU5Dd1J6YzM0MFViTFZ1MlljSWY1UEdLNHBIbmdWZnZDNVBvV2wzRVZYTnlCSkpPb2dtZFAtTVlkbkVsMjcwQzZUeXRta2M5U1R4empMRlRxR3V4cGV3UGFkZy02RlY5cmFndlY4cnBMWU4xaUQwYk5xYU5CbEt3NlBGcUFxVFNJamp6dmJOSEhZNzVNTHhYMy0wb0NQeE9DTjRqQ3F6Q2FIRC1wcmxKRWN3ZGhoYWw4ajRZRWtfUGpPbmUxQlNzVFJJQ2k2N0JKUXUtSDlSZGZUSktvMkpBUi1VajYzN3gyTWcyZzYwUzBoZGV4VzhGT0U1Wk01NEtDVFJaejdXWEVpeG0tV19ubFFXY0JWSk5zV01INUhXTUNHRkpLbmZlQ1lYc3puaUVmRnE0ck10dFRvRjRnLWZlR0FVQzlCUERTanBndm9ONzY1SzhqdmpaWkhWcjM1M0pqZWJXdGxqUTFQRjcxamJ4VkprS3RvWWwwMVJxSW1pMkkyUlAxb3lSQzVaRG9Oa3FSZEVLQnpiN2tJSVl0YXBPakZYUHBwYkxCb0FFN0tERVdsSHNNSnBPaURaZzQ1Q3FtRUppVFFsamVZU3VpV01wY3RXVFFxXzYtQ0JJbUw5OTZDUkJkdDZnSlQyNUxVYXpqdkxVWHJHeW9uNTRkMzR5Sl9iek1TdmJwZlR2SHYyaTNLVWVYZ0lHNUFySVg4SUZORDJfTmVfTXVGQXd2TE00TDB3d3hsMG40bWk4NFFBVFRWaUI1S1l1M0NyVDZEQlpjcUp6ZmNHN21jYjBZMFVxTUtFZHV0bUtVOHdCTmk4Z21IN0RWbzRHVWtyODRhVVVrMzIwTk1IOUY0Tlk2RXhCYzNUQUwyTDVrWl82RldVTExqeUVhc21YQWVRZWVkWmQ3SVFUZEhtdmtOQkpIY0pvTmpHWFZZT1Zpd05vc3I1ckg0RU5Ibm9XYmhHU0dUcDkzUFJmWVI4MFhjN3Y5NnV0WHZIVExkdnRXYlJKNWwydzlfenYyS0kwdWJTblF1N1pMSWZKdzZEVjgzZHVCT3JCMHI4OERFaldIQUh5Y294VmVZa3E2LUhyaHFxMmMwM1NLNVFXT3UtaDRKNXRhb3BKSDc5SkpfZkNNNFVNbVM3NWRxZmhMbWFMM1VXdHVwbEVudWtWQTZtMjdubmM5eEtVZ3VPXzlGeko5Z1BKVnB3YzluYzdFNnNNUXhycTk2Ty1jblNrb1ZUXzJVcVJrRDB1R3V6azBTSmtTc0F4aFZLLXlfajJOck1EcHBuRFVCdDVYcDhOOHBJVWdIMUZ2X3Fua3FsSEVLVEpuTlRHZ1pTWFR6eEhMWEk0R3gtZ2hPTFBONmNyZzhBTEdoZ3huMGYtVk1uTEdoRnlQdjhXRmVKTHlZTHN1VlBZLVNmZ1B5aXh3VUlTWl9KSW9ubWg0R05VTTc4Q0NTUlMxcS1vR1NLZ0syN3oxMF9odzNESV9Bc1BGOUFaR0laSDc5Rk1tVUEwZ1pCaW1kZEJ3cUxTVnJXZi1ZVUNXUEJScG1VT1FXZ1M3U09XazE0MjdNbDc3S3UyZXJwbktITlM0cFlpbU1LLXBhUXo2cXlMWmZHOFM3RjVLZWFLYzlCM0pQa3BRM2Y5U0ZENDRzczVZNHpsSVNEWU53azhLcUYyMUV2dmtWbWplLVNLX05yTGotblpjNDJxYkswT3RnOWJ5bXpvUzFSc2hWX2pROWVqVlZreGZ5ajZ1YTE0b2RKbXVQV3Noc1lBelRIWEt5c0E1SGVfcV9OQS5ZSXUxZ0RlbnlrNmg5cUtOcE1tTm9LYkZraTJnNEpwQ1p6UTlHT0U3R0lCTWIwNkRlZXAyVlpqM0pwQnFxVk1MZjNaZU5SQ2pQbjltRVR3WUNzeENXUQ=="/><input type="hidden" name="_eventId" value="submit"/><input type="hidden" name="geolocation"/><input type="hidden" name="deviceFingerprint"/><script type="text/javascript">
+	                            let client = new ClientJS();
+	                            let fingerprint = client.getFingerprint();
+	                            $('[name="deviceFingerprint"]').val(fingerprint);
+	                        </script>
+	                    </section>
+	
+	                    <button
+                class="mdc-button mdc-button--raised btn btn-primary btn-primary flex-shrink-0"
+                name="submitBtn"
+                id="submitBtn"
+                accesskey="l"
+                type="submit">
+            <i class="mdi fas mdi-login fa-shield-alt" aria-hidden="true"></i>
+            <span class="mdc-button__label">Login</span>
+        </button>
+
+        </div>
+	            </form>
+			</div>
+			
+            <hr class="my-4"/><div>
+                <div id="pmlinks" class="my-2">
+        <div class="mt-2">
+            <span class="mdi mdi-account-question" aria-hidden="true"></span>
+            <span><a href="https://oim.urv.cat/password?lang=en" target="_blank" class="link-primary">Recover your password</a><span class="mx-2">/</span><a href="https://oim.urv.cat/autogestio?lang=en" target="_blank" class="link-primary">Change your password</a><div class="my-2"><span class="fw-bold">Username</span>is your nif/nie/passport number</div><details class="mb-3"><summary class="btn btn-primary d-inline-flex align-items-center" aria-expanded="false"><span class="me-2">How to change the browser language?</span><span class="arrow me-1" aria-hidden="true"/></summary><div class="card card-body mt-2"><p class="card-text">This application uses the browser settings to display the language. Here are the links to the guides for the main browsers that explain how to change the language.</p><ul class="list-unstyled mb-0"><li><a href="https://support.microsoft.com/es-es/microsoft-edge/usar-microsoft-edge-en-otro-idioma-4da8b5e0-11ce-7ea4-81d7-4e332eec551f" target="_blank" rel="noopener noreferrer" class="link-primary">Microsoft Edge <span class="visually-hidden">(opens in a new tab)</span></a></li><li><a href="https://support.google.com/chrome/answer/173424?hl=ca&co=GENIE.Platform%3DDesktop" target="_blank" rel="noopener noreferrer" class="link-primary">Chrome <span class="visually-hidden">(opens in a new tab)</span></a></li><li><a href="https://support.mozilla.org/es/kb/elegir-el-idioma-preferido-en-paginas-multiling%C3%BCes" target="_blank" rel="noopener noreferrer" class="link-primary">Firefox <span class="visually-hidden">(opens in a new tab)</span></a></li><li><a href="https://support.apple.com/ca-es/guide/mac-help/mh26684/mac" target="_blank" rel="noopener noreferrer" class="link-primary">Safari <span class="visually-hidden">(opens in a new tab)</span></a></li></ul></div></details></span>
+        </div>
+    </div>
+                </div>
+
+            <script type="text/javascript">
+                /*<![CDATA[*/
+                var i = "One moment please..."
+                var j = "Login"
+                    /*]]>*/
+                    $(window).on('pageshow', function () {
+                        $(':submit').prop('disabled', false);
+                        $(':submit').attr('value', j);
+                    });
+                $(document).ready(function () {
+                    $("#fm1").submit(function () {
+                        $(":submit").attr("disabled", true);
+                        $(":submit").attr("value", i);
+                        return true;
+                    });
+                });
+            </script>
+        </div>
+
+        <div>
+            <div id="sidebar">
+            <div class="sidebar-content">
+				<div>
+					<div>
+						<div>
+							<p><div id=avis_ca><br><b>Support:</b><br>For more information, please contact Virtual Service <a href="http://www.urv.cat/crai/que-us-oferim/pregunta.html" target=_blank><b>Pregunt@</b></a><br><br>The Commission on Scientific and Transference Policy, delegated by the Governing Council, approved, on December 13th, 2017, <a href="http://www.urv.cat/media/upload/arxius/crai/directrius-signatura.pdf" target=_blank><b>new Guidelines for the institutional signature and affiliation </b></a>in the scientific production of the URV.</div></p>
+						</div>
+					</div>
+				</div>
+				<!--
+					<p th:utext="#{urv.login.idioma}">Locale</p>
+				--><p>For security reasons, please <a href="logout">log out</a> and exit your web browser when you are done accessing services that require authentication!</p>
+            </div>
+        </div>
+        </div>
+    </div>
+        </section>
+        </div>
+</div>
+        </main>
+    </div>
+	<section id="footer">
+    	</section>
+
+</body>
+
+</html>
